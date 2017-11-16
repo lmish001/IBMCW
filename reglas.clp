@@ -25,10 +25,8 @@
 ;;(dribble-on)
 )
 
-
 (defrule filtrar_por_ingredientes
-(declare (salience 6))
-(busqueda (estilo ?busq_e) (tipo_plato ?busq_tp))
+(busqueda (estilo ?busq_e) (tipo_plato ?busq_tp) (ingredientes $? ?busq_ing))
 ?ob<-(object (is-a ?obj_e&RECETA)(id_receta ?id)(tipo_plato ?obj_tp) (elegido false))
 (test(or
 	(eq ?busq_e ?obj_e)
@@ -38,9 +36,13 @@
 	(eq ?busq_tp ?obj_tp)
 	(eq ?busq_tp null)
 ))
+(or
+(test (eq ?busq_ing null))
 (forall (busqueda (ingredientes $? ?ingrediente_receta $?))
 (object (is-a ?obj_e) (id_receta ?id) (ingredientes $? ?ingrediente_receta $?))
 )
+)
+
 
 =>
 (modify-instance ?ob (elegido true))
