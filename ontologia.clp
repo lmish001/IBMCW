@@ -9,13 +9,16 @@
 (multislot ingredientes (type SYMBOL))
 (slot num_ingredientes (type INTEGER))
 (slot elegido (type SYMBOL)
-(allowed-values true false )
+(allowed-values true false)
 (default false))
 )
 
 (defclass ITALIANO (is-a RECETA))
 (defclass ASIATICO (is-a RECETA))
 (defclass MEDITERRANEO (is-a RECETA))
+
+(defclass TIPO_PLATO (is-a INITIAL-OBJECT)
+(slot id_plato (type SYMBOL)))
 
 (defclass PASO (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
@@ -68,7 +71,6 @@
 	(slot estilo
 	(type SYMBOL))
 )
-
 
 
 
