@@ -1,15 +1,14 @@
 
-(defrule inicio
-=>
-(assert (busqueda (ingredientes masa mozarella carne) (tipo_plato null) (estilo null)))
-)
-
 (definstances ingredientes
 ([i1] of CARNE (id_ingrediente carne))
 ([i2] of SALSA (id_ingrediente boloñesa))
 ([i3] of VERDURA (id_ingrediente tomate))
 ([i4] of QUESO (id_ingrediente mozarella))
 ([i5] of CEREALES (id_ingrediente masa))
+)
+
+(definstances platos
+([pl1] of TIPO_PLATO (id_plato pizza))
 )
 
 (definstances receta1 
@@ -22,35 +21,34 @@
 ([r1] of ITALIANO (id_receta "Pizza con queso") (tipo_plato pizza) (ingredientes carne queso masa) (num_ingredientes 3))
 )
 
-
-(defrule filtrar_por_estilo
-(declare (salience 10))
-(busqueda (estilo ?e&~null))
-?ob <-(object (is-a ~?e) (elegido false))
+(defrule inicio
+(declare (salience 100))
 =>
-(modify-instance ?ob (elegido true))
+(assert (busqueda (ingredientes  queso mozarella carne) (tipo_plato null) (estilo ITALIANO)))
+(set-strategy random)
+;;(dribble-on)
 )
 
-(defrule filtrar_por_plato
-(declare (salience 8))
-(busqueda (tipo_plato ?tipo&~null))
-?ob <-(object (is-a RECETA)(tipo_plato ?tipo) (elegido false))
-=>
-(modify-instance ?ob (elegido true))
-)
 
 (defrule filtrar_por_ingredientes
 (declare (salience 6))
-?ob<-(object (is-a RECETA)(id_receta ?id))
-(forall (object (is-a RECETA) (id_receta ?id) (ingredientes $? ?ingrediente_receta $?) (elegido false))
-(busqueda (ingredientes $? ?ingrediente_receta $?)))
+(busqueda (estilo ?busq_e) (tipo_plato ?busq_tp))
+?ob<-(object (is-a ?obj_e&RECETA)(id_receta ?id)(tipo_plato ?obj_tp) (elegido false))
+(test(or
+	(eq ?busq_e ?obj_e)
+	(eq ?busq_e null)
+))
+(test(or
+	(eq ?busq_tp ?obj_tp)
+	(eq ?busq_tp null)
+))
+(forall (busqueda (ingredientes $? ?ingrediente_receta $?))
+(object (is-a ?obj_e) (id_receta ?id) (ingredientes $? ?ingrediente_receta $?))
+)
 
 =>
 (modify-instance ?ob (elegido true))
 )
-
-
-
 
 
 
