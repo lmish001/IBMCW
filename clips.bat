@@ -1,0 +1,6 @@
+(clear)
+(load "C:/Users/eldgb/OneDrive/Documentos/Curso 2017-2018/Ing. Conocimiento/Practica 1/ontologia.clp")
+(load "C:/Users/eldgb/OneDrive/Documentos/Curso 2017-2018/Ing. Conocimiento/Practica 1/reglas.clp")
+(reset)
+(run)
+(send [r1] print)

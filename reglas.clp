@@ -7,10 +7,6 @@
 ([i5] of CEREALES (id_ingrediente masa))
 )
 
-(definstances platos
-([pl1] of TIPO_PLATO (id_plato pizza))
-)
-
 (definstances receta1 
 ([p11] of PASO (id_receta "Pizza con queso") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa carne))
 ([p12] of PASO (id_receta "Pizza con queso") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes queso))
@@ -49,6 +45,7 @@
 =>
 (modify-instance ?ob (elegido true))
 )
+
 
 
 

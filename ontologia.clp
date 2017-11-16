@@ -17,8 +17,6 @@
 (defclass ASIATICO (is-a RECETA))
 (defclass MEDITERRANEO (is-a RECETA))
 
-(defclass TIPO_PLATO (is-a INITIAL-OBJECT)
-(slot id_plato (type SYMBOL)))
 
 (defclass PASO (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
@@ -71,6 +69,7 @@
 	(slot estilo
 	(type SYMBOL))
 )
+
 
 
 
