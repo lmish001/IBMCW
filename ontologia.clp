@@ -13,9 +13,10 @@
 (default false))
 )
 
-(defclass ITALIANO (is-a RECETA))
+
 (defclass ASIATICO (is-a RECETA))
 (defclass MEDITERRANEO (is-a RECETA))
+(defclass ITALIANO (is-a MEDITERRANEO))
 
 
 (defclass PASO (is-a INITIAL-OBJECT)
