@@ -43,11 +43,23 @@
 (set-strategy random)
 ;;(dribble-on)
 )
+(defrule mensaje_error
+(declare (salience 95))
+(busqueda (estilo ?busq_e) (tipo_plato ?busq_tp) (ingredientes $? ?busq_ing))
+(test (eq ?busq_e null))
+(test (eq ?busq_tp null))
+(test (eq ?busq_ing null))
+=>
+(printout t "*********Error: Busqueda no definida*********" crlf)
+(halt)
+)
 
-(defrule filtrar_por_ingredientes
+(defrule filtrar_recetas
+(declare (salience 90))
 (busqueda (estilo ?busq_e) (tipo_plato ?busq_tp) (ingredientes $? ?busq_ing))
 ?ob<-(object (is-a ?obj_e&RECETA)(id_receta ?id)(tipo_plato ?obj_tp) (elegido false))
 (test(or
+	(superclassp ?busq_e ?obj_e)
 	(eq ?busq_e ?obj_e)
 	(eq ?busq_e null)
 ))
@@ -56,17 +68,14 @@
 	(eq ?busq_tp null)
 ))
 (or
-(test (eq ?busq_ing null))
-(forall (busqueda (ingredientes $? ?ingrediente_receta $?))
-(object (is-a ?obj_e) (id_receta ?id) (ingredientes $? ?ingrediente_receta $?))
+	(test (eq ?busq_ing null))
+	(forall (busqueda (ingredientes $? ?ingrediente_receta $?))
+			(object (is-a ?obj_e) (id_receta ?id) (ingredientes $? ?ingrediente_receta $?)))
 )
-)
-
-
 =>
 (modify-instance ?ob (elegido true))
+(printout t ?obj_e crlf)
 )
-
 
 
 
