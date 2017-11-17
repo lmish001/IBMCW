@@ -1,4 +1,6 @@
 
+
+
 (defrule inicio
 (declare (salience 100))
 =>
@@ -41,5 +43,21 @@
 )
 
 
+(defrule generar_plantilla_receta_1
+(declare (salience 85))
+(object (is-a ?obj_e&RECETA) (id_receta ?id) (elegido true) (generado false))
+(object (is-a INGREDIENTE_RECETA) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado false))
+(busqueda (ingredientes $? ?id_ing $?))
+=>
+(make-instance of INGREDIENTE_RECETA (id_receta new) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado true))
+)
 
+(defrule generar_plantilla_receta_2
+(declare (salience 80))
+(object (is-a ?obj_e&RECETA) (id_receta ?id) (elegido true) (generado false))
+(object (is-a INGREDIENTE_RECETA) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado false))
+(not (object (is-a INGREDIENTE_RECETA) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado true)))
+=>
+(make-instance of INGREDIENTE_RECETA (id_receta new) (id_ingrediente CAMBIAR) (paso ?p) (cantidad ?cant) (generado true))
+)
 
