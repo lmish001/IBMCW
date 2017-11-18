@@ -1,14 +1,12 @@
-
-
 (defclass RECETA (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
 (slot tipo_plato (type SYMBOL))
-;;allowed-values
-;;(multislot ingredientes (type INSTANCE)
-;;						(allowed-classes INGREDIENTE))
 (multislot ingredientes (type SYMBOL))
 (slot num_ingredientes (type INTEGER))
 (slot elegido (type SYMBOL)
+(allowed-values true false)
+(default false))
+(slot generado (type SYMBOL)
 (allowed-values true false)
 (default false))
 )
@@ -18,13 +16,13 @@
 (defclass MEDITERRANEO (is-a RECETA))
 (defclass ITALIANO (is-a MEDITERRANEO))
 
+(defclass RECETA_GENERADA (is-a RECETA)
+(slot basado_en (type SYMBOL)))
 
 (defclass PASO (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
 (slot orden (type INTEGER))
 (slot descripcion (type STRING))
-;;(multislot ingredientes (type INSTANCE)
-;;						(allowed-classes INGREDIENTE))
 (multislot ingredientes (type SYMBOL))
 )
 
@@ -44,17 +42,24 @@
 (defclass PASTA (is-a ALIMENTO))
 (defclass DERIVADOS_LECHE (is-a ALIMENTO))
 (defclass QUESO (is-a DERIVADOS_LECHE))
-(defclass CEREALES (is-a ALIMENTO)
-;;(defclass MASA (is-a ALIMENTO)
-)
+(defclass CEREALES (is-a ALIMENTO))
+(defclass MASA (is-a ALIMENTO))
 
 (defclass INGREDIENTE_RECETA (is-a INITIAL-OBJECT)
 (slot id_ingrediente(type SYMBOL))
 (slot id_receta (type STRING))
 (slot paso (type INTEGER))
 (slot cantidad (type INTEGER))
-;;(slot esencial (type SYMBOL)
-;;(allowed-values true, false))
+(slot generado (type SYMBOL)
+(allowed-values true false)
+(default false))
+(slot tipo(type SYMBOL))
+)
+
+(defclass INGREDIENTE_RECETA_GEN (is-a INGREDIENTE_RECETA)
+(slot fijado (type SYMBOL)
+(allowed-values true false)
+(default false))
 )
 
 (defclass SINERGIA (is-a INITIAL-OBJECT)
@@ -70,6 +75,8 @@
 	(slot estilo
 	(type SYMBOL))
 )
+
+
 
 (definstances ingredientes
 ([ing0] of CARNE (id_ingrediente ternera))
@@ -99,51 +106,61 @@
 ([ing24] of CEREALES (id_ingrediente cereales_integrales))
 ([ing25] of CEREALES (id_ingrediente cereales_choco))
 ([ing26] of LIQUIDO (id_ingrediente caldo_de_pollo))
-([ing27] of ALIMENTO (id_ingrediente masa))
-([ing28] of ALIMENTO (id_ingrediente masa_integral))
+([ing27] of MASA (id_ingrediente masa_de_trigo))
+([ing28] of MASA (id_ingrediente masa_integral))
 )
 
+(definstances sinergia
+([s1] of SINERGIA (id_ingrediente1 masa_integral) (id_ingrediente2 pavo) (grado 10))
+([s2] of SINERGIA (id_ingrediente1 pavo) (id_ingrediente2 masa_integral) (grado 10))
+([s3] of SINERGIA (id_ingrediente1 masa_integral) (id_ingrediente2 pollo) (grado 15))
+([s4] of SINERGIA (id_ingrediente1 pollo) (id_ingrediente2 masa_integral) (grado 15))
+([s5] of SINERGIA (id_ingrediente1 masa_integral) (id_ingrediente2 ternera) (grado 12))
+([s6] of SINERGIA (id_ingrediente1 ternera) (id_ingrediente2 masa_integral) (grado 12))
+([s7] of SINERGIA (id_ingrediente1 masa_de_trigo) (id_ingrediente2 pavo) (grado 50))
+([s8] of SINERGIA (id_ingrediente1 pavo) (id_ingrediente2 masa_de_trigo) (grado 50))
+([s9] of SINERGIA (id_ingrediente1 barbacoa) (id_ingrediente2 pavo) (grado 55))
+([s10] of SINERGIA (id_ingrediente1 pavo) (id_ingrediente2 barbacoa) (grado 55))
+([s11] of SINERGIA (id_ingrediente1 bolognesa) (id_ingrediente2 pavo) (grado 20))
+([s12] of SINERGIA (id_ingrediente1 pavo) (id_ingrediente2 bolognesa) (grado 20))
+ )
+
 (definstances receta0
-([r0] of ITALIANO (id_receta "Pizza 4 quesos") (tipo_plato pizza) (ingredientes  masa parmesano mozzarella queso_de_cabra roquefort) (num_ingredientes 5 ))
-([p00] of PASO (id_receta "Pizza 4 quesos") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa))
+([r0] of ITALIANO (id_receta "Pizza 4 quesos") (tipo_plato pizza) (ingredientes masa_de_trigo parmesano mozzarella queso_de_cabra roquefort) (num_ingredientes 5 ))
+([p00] of PASO (id_receta "Pizza 4 quesos") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_de_trigo))
 ([p01] of PASO (id_receta "Pizza 4 quesos") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes parmesano mozzarella queso_de_cabra roquefort))
 ([p02] of PASO (id_receta "Pizza 4 quesos") (orden 3) (descripcion "Hornear la pizza"))
-([i0r0] of INGREDIENTE_RECETA (id_ingrediente masa) (id_receta "Pizza 4 quesos")(paso 1) (cantidad 190))
-([i1r0] of INGREDIENTE_RECETA (id_ingrediente parmesano) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 80))
-([i2r0] of INGREDIENTE_RECETA (id_ingrediente mozzarella) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 80))
-([i3r0] of INGREDIENTE_RECETA (id_ingrediente queso_de_cabra) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 50))
-([i4r0] of INGREDIENTE_RECETA (id_ingrediente roquefort) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 150))
+([i0r0] of INGREDIENTE_RECETA (id_ingrediente masa_de_trigo) (id_receta "Pizza 4 quesos")(paso 1) (cantidad 190) (tipo MASA))
+([i1r0] of INGREDIENTE_RECETA (id_ingrediente parmesano) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 80)(tipo QUESO))
+([i2r0] of INGREDIENTE_RECETA (id_ingrediente mozzarella) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 80)(tipo QUESO))
+([i3r0] of INGREDIENTE_RECETA (id_ingrediente queso_de_cabra) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 50)(tipo QUESO))
+([i4r0] of INGREDIENTE_RECETA (id_ingrediente roquefort) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 150)(tipo QUESO))
 )
 (definstances receta1
-([r1] of ITALIANO (id_receta "Pizza barbacoa") (tipo_plato pizza) (ingredientes  masa ternera barbacoa) (num_ingredientes 3 ))
-([p10] of PASO (id_receta "Pizza barbacoa") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa))
+([r1] of ITALIANO (id_receta "Pizza barbacoa") (tipo_plato pizza) (ingredientes masa_integral ternera barbacoa) (num_ingredientes 3 ))
+([p10] of PASO (id_receta "Pizza barbacoa") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_integral))
 ([p11] of PASO (id_receta "Pizza barbacoa") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes ternera barbacoa))
 ([p12] of PASO (id_receta "Pizza barbacoa") (orden 3) (descripcion "Hornear la pizza"))
-([i0r1] of INGREDIENTE_RECETA (id_ingrediente masa) (id_receta "Pizza barbacoa")(paso 1) (cantidad 80))
-([i1r1] of INGREDIENTE_RECETA (id_ingrediente ternera) (id_receta "Pizza barbacoa")(paso 2) (cantidad 80))
-([i2r1] of INGREDIENTE_RECETA (id_ingrediente barbacoa) (id_receta "Pizza barbacoa")(paso 2) (cantidad 140))
+([i0r1] of INGREDIENTE_RECETA (id_ingrediente masa_integral) (id_receta "Pizza barbacoa")(paso 1) (cantidad 80)(tipo MASA))
+([i1r1] of INGREDIENTE_RECETA (id_ingrediente ternera) (id_receta "Pizza barbacoa")(paso 2) (cantidad 80)(tipo CARNE))
+([i2r1] of INGREDIENTE_RECETA (id_ingrediente barbacoa) (id_receta "Pizza barbacoa")(paso 2) (cantidad 140)(tipo CARNE))
 )
 (definstances receta2
-([r2] of ITALIANO (id_receta "Pizza carbonara") (tipo_plato pizza) (ingredientes  masa_integral pollo parmesano) (num_ingredientes 3 ))
+([r2] of ITALIANO (id_receta "Pizza carbonara") (tipo_plato pizza) (ingredientes masa_integral pollo parmesano) (num_ingredientes 3 ))
 ([p20] of PASO (id_receta "Pizza carbonara") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_integral))
 ([p21] of PASO (id_receta "Pizza carbonara") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes pollo parmesano))
 ([p22] of PASO (id_receta "Pizza carbonara") (orden 3) (descripcion "Hornear la pizza"))
-([i0r2] of INGREDIENTE_RECETA (id_ingrediente masa_integral) (id_receta "Pizza carbonara")(paso 1) (cantidad 90))
-([i1r2] of INGREDIENTE_RECETA (id_ingrediente pollo) (id_receta "Pizza carbonara")(paso 2) (cantidad 180))
-([i2r2] of INGREDIENTE_RECETA (id_ingrediente parmesano) (id_receta "Pizza carbonara")(paso 2) (cantidad 180))
+([i0r2] of INGREDIENTE_RECETA (id_ingrediente masa_integral) (id_receta "Pizza carbonara")(paso 1) (cantidad 90)(tipo MASA))
+([i1r2] of INGREDIENTE_RECETA (id_ingrediente pollo) (id_receta "Pizza carbonara")(paso 2) (cantidad 180)(tipo CARNE))
+([i2r2] of INGREDIENTE_RECETA (id_ingrediente parmesano) (id_receta "Pizza carbonara")(paso 2) (cantidad 180)(tipo QUESO))
 )
 (definstances receta3
-([r3] of ITALIANO (id_receta "Pizza jamon y queso") (tipo_plato pizza) (ingredientes  masa jamon_york mozzarella) (num_ingredientes 3 ))
-([p30] of PASO (id_receta "Pizza jamon y queso") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa))
+([r3] of ITALIANO (id_receta "Pizza jamon y queso") (tipo_plato pizza) (ingredientes  masa_de_trigo jamon_york mozzarella) (num_ingredientes 3 ))
+([p30] of PASO (id_receta "Pizza jamon y queso") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_de_trigo))
 ([p31] of PASO (id_receta "Pizza jamon y queso") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes jamon_york mozzarella))
 ([p32] of PASO (id_receta "Pizza jamon y queso") (orden 3) (descripcion "Hornear la pizza"))
-([i0r3] of INGREDIENTE_RECETA (id_ingrediente masa) (id_receta "Pizza jamon y queso")(paso 1) (cantidad 160))
-([i1r3] of INGREDIENTE_RECETA (id_ingrediente jamon_york) (id_receta "Pizza jamon y queso")(paso 2) (cantidad 10))
-([i2r3] of INGREDIENTE_RECETA (id_ingrediente mozzarella) (id_receta "Pizza jamon y queso")(paso 2) (cantidad 20))
+([i0r3] of INGREDIENTE_RECETA (id_ingrediente masa_de_trigo) (id_receta "Pizza jamon y queso")(paso 1) (cantidad 160) (tipo MASA))
+([i1r3] of INGREDIENTE_RECETA (id_ingrediente jamon_york) (id_receta "Pizza jamon y queso")(paso 2) (cantidad 10)(tipo CARNE))
+([i2r3] of INGREDIENTE_RECETA (id_ingrediente mozzarella) (id_receta "Pizza jamon y queso")(paso 2) (cantidad 20)(tipo QUESO))
 )
-
-
-
-
-
 
