@@ -39,38 +39,51 @@
 (printout t ?obj_e crlf)
 )
 
-
-(defrule generar_plantilla_receta_1
+(defrule generar_plantilla_receta
 (declare (salience 85))
-(object (is-a ?obj_e&RECETA) (id_receta ?id) (elegido true) (generado false))
-(object (is-a INGREDIENTE_RECETA) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado false) (tipo ?tipo))
+(object (is-a RECETA) (id_receta ?id) (tipo_plato ?tipo_plato) (elegido true) (num_ingredientes ?num))
+(not (object (is-a RECETA_GENERADA)(basado_en ?id)))
+=>
+(make-instance of RECETA_GENERADA (id_receta (str-cat ?tipo_plato " basado en " ?id)) (tipo_plato ?tipo_plato) (basado_en ?id) (num_ingredientes ?num))
+)
+
+(defrule generar_plantilla_paso
+(declare (salience 80))
+(object (is-a RECETA) (id_receta ?id))
+(object (is-a RECETA_GENERADA) (id_receta ?id1) (basado_en ?id))
+(object (is-a PASO) (id_receta ?id) (orden ?o) (descripcion ?d))
+(not (object (is-a PASO_GENERADO)(id_receta ?id1) (orden ?o)))
+=>
+(make-instance of PASO_GENERADO (id_receta ?id1) (orden ?o) (descripcion ?d))
+)
+
+(defrule generar_plantilla_ingrediente_1
+(declare (salience 75))
+(object (is-a RECETA) (id_receta ?id) (tipo_plato ?tipo_plato) (elegido true) (generado false) (num_ingredientes ?num))
+(object (is-a INGREDIENTE_RECETA) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado false) (tipo ?tipo_ing))
+(object (is-a PASO) (id_receta ?id) (orden ?p)(descripcion ?d))
 (busqueda (ingredientes $? ?id_ing $?))
 =>
 
-;;;;CAMBIAR EL NUEVO ID DE RECETA!!!!!;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(make-instance of INGREDIENTE_RECETA_GEN (id_receta new) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado true) (tipo ?tipo) (fijado true))
-;;(make-instance of RECETA_GENERADA) (id_receta new) (basado_en ?id) (generado true) (tipo_plato pizza) (num_ingredientes 3 ))
+(make-instance of INGREDIENTE_RECETA_GEN (id_receta (str-cat ?tipo_plato " basado en " ?id)) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado true) (tipo ?tipo_ing) (fijado true))
 )
 
-(defrule generar_plantilla_receta_2
-(declare (salience 80))
-(object (is-a ?obj_e&RECETA) (id_receta ?id) (elegido true) (generado false))
-(object (is-a INGREDIENTE_RECETA) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado false) (tipo ?tipo))
-(not (object (is-a INGREDIENTE_RECETA) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado true)))
+(defrule generar_plantilla_ingrediente_2
+(declare (salience 70))
+(object (is-a RECETA) (id_receta ?id) (tipo_plato ?tipo_plato) (elegido true) (generado false) (num_ingredientes ?num))
+(object (is-a INGREDIENTE_RECETA) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado false) (tipo ?tipo_ing))
+(not (object (is-a INGREDIENTE_RECETA_GEN) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant)))
+(object (is-a PASO) (id_receta ?id) (orden ?p)(descripcion ?d))
 =>
 
-;;;;CAMBIAR EL NUEVO ID DE RECETA!!!!!;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(make-instance of INGREDIENTE_RECETA_GEN (id_receta new) (id_ingrediente CAMBIAR) (paso ?p) (cantidad ?cant) (generado true) (tipo ?tipo))
-;;(make-instance of RECETA_GENERADA) (id_receta new) (basado_en ?id) (generado true) (tipo_plato pizza) (num_ingredientes 3 ))
+(make-instance of INGREDIENTE_RECETA_GEN (id_receta (str-cat ?tipo_plato " basado en " ?id)) (id_ingrediente CAMBIAR) (paso ?p) (cantidad ?cant) (generado true) (tipo ?tipo_ing))
 )
 
 ;;Suponemos que todas las recetas tienen al menos 2 ingredientes
 ;;La primera regla es cuando no hay ningun ingrediente fijado. Fijamos la tupla que tiene la maxima sinergia (segun el tipo de ingrediente)
 
 (defrule fijar_ingrediente_1
-(declare (salience 75))
+(declare (salience 65))
 (not (object (is-a INGREDIENTE_RECETA_GEN)(id_receta ?id)(id_ingrediente ~CAMBIAR)))
 
 ?ing1<-(object (is-a INGREDIENTE_RECETA_GEN) (id_receta ?id) (id_ingrediente CAMBIAR) (tipo ?tipo1) (fijado false))
@@ -89,13 +102,13 @@
 )
 
 =>
-(modify-instance ?ing1 (id_ingrediente ?id_ing1) (fijado true))
-(modify-instance ?ing2 (id_ingrediente ?id_ing2) (fijado true))
+(modify-instance ?ing1 (id_ingrediente ?id_ing1))
+(modify-instance ?ing2 (id_ingrediente ?id_ing2))
 )
 
 ;;Si ya hay ingredientes fijados, el siguiente ingrediente a añadir es el que tiene el grado de sinergia mas alto con alguno de los ingredientes introducidos
 (defrule fijar_ingrediente_2
-(declare (salience 70))
+(declare (salience 60))
 (object (is-a INGREDIENTE_RECETA_GEN) (id_receta ?id) (id_ingrediente ?id_ing1) (fijado true))
 ?ing2<-(object (is-a INGREDIENTE_RECETA_GEN) (id_receta ?id) (id_ingrediente CAMBIAR) (tipo ?tipo2) (fijado false))
 
@@ -107,6 +120,24 @@
 
 =>
 (modify-instance ?ing2 (id_ingrediente ?id_ing2) (fijado true))
+)
+
+(defrule incluir_ing_receta
+(declare (salience 55))
+?ing<-(object (is-a INGREDIENTE_RECETA_GEN) (id_receta ?id) (id_ingrediente ?id_ing) (fijado true) (incluir_receta false))
+?receta<-(object (is-a RECETA_GENERADA) (id_receta ?id) (ingredientes $?x))
+=>
+(modify-instance ?ing (incluir_receta true))
+(modify-instance ?receta (ingredientes $?x ?id_ing))
+)
+
+(defrule incluir_ing_paso
+(declare (salience 50))
+?ing<-(object (is-a INGREDIENTE_RECETA_GEN) (id_receta ?id) (id_ingrediente ?id_ing) (paso ?p) (fijado true) (incluir_paso false))
+?paso<-(object (is-a PASO_GENERADO) (id_receta ?id) (orden ?p) (ingredientes $?x))
+=>
+(modify-instance ?ing (incluir_paso true))
+(modify-instance ?paso (ingredientes $?x ?id_ing))
 )
 
 

@@ -17,7 +17,7 @@
 (defclass ITALIANO (is-a MEDITERRANEO))
 
 (defclass RECETA_GENERADA (is-a RECETA)
-(slot basado_en (type SYMBOL)))
+(slot basado_en (type STRING)))
 
 (defclass PASO (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
@@ -25,6 +25,8 @@
 (slot descripcion (type STRING))
 (multislot ingredientes (type SYMBOL))
 )
+
+(defclass PASO_GENERADO(is-a PASO))
 
 (defclass INGREDIENTE (is-a INITIAL-OBJECT)
 (slot id_ingrediente (type SYMBOL)))
@@ -60,6 +62,12 @@
 (slot fijado (type SYMBOL)
 (allowed-values true false)
 (default false))
+(slot incluir_receta (type SYMBOL)
+(allowed-values true false)
+(default false))
+(slot incluir_paso (type SYMBOL)
+(allowed-values true false)
+(default false))
 )
 
 (defclass SINERGIA (is-a INITIAL-OBJECT)
@@ -75,7 +83,6 @@
 	(slot estilo
 	(type SYMBOL))
 )
-
 
 
 (definstances ingredientes
@@ -126,7 +133,7 @@
  )
 
 (definstances receta0
-([r0] of ITALIANO (id_receta "Pizza 4 quesos") (tipo_plato pizza) (ingredientes masa_de_trigo parmesano mozzarella queso_de_cabra roquefort) (num_ingredientes 5 ))
+([r0] of ITALIANO (id_receta "Pizza 4 quesos") (tipo_plato Pizza) (ingredientes masa_de_trigo parmesano mozzarella queso_de_cabra roquefort) (num_ingredientes 5 ))
 ([p00] of PASO (id_receta "Pizza 4 quesos") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_de_trigo))
 ([p01] of PASO (id_receta "Pizza 4 quesos") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes parmesano mozzarella queso_de_cabra roquefort))
 ([p02] of PASO (id_receta "Pizza 4 quesos") (orden 3) (descripcion "Hornear la pizza"))
@@ -137,7 +144,7 @@
 ([i4r0] of INGREDIENTE_RECETA (id_ingrediente roquefort) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 150)(tipo QUESO))
 )
 (definstances receta1
-([r1] of ITALIANO (id_receta "Pizza barbacoa") (tipo_plato pizza) (ingredientes masa_integral ternera barbacoa) (num_ingredientes 3 ))
+([r1] of ITALIANO (id_receta "Pizza barbacoa") (tipo_plato Pizza) (ingredientes masa_integral ternera barbacoa) (num_ingredientes 3 ))
 ([p10] of PASO (id_receta "Pizza barbacoa") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_integral))
 ([p11] of PASO (id_receta "Pizza barbacoa") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes ternera barbacoa))
 ([p12] of PASO (id_receta "Pizza barbacoa") (orden 3) (descripcion "Hornear la pizza"))
@@ -146,7 +153,7 @@
 ([i2r1] of INGREDIENTE_RECETA (id_ingrediente barbacoa) (id_receta "Pizza barbacoa")(paso 2) (cantidad 140)(tipo CARNE))
 )
 (definstances receta2
-([r2] of ITALIANO (id_receta "Pizza carbonara") (tipo_plato pizza) (ingredientes masa_integral pollo parmesano) (num_ingredientes 3 ))
+([r2] of ITALIANO (id_receta "Pizza carbonara") (tipo_plato Pizza) (ingredientes masa_integral pollo parmesano) (num_ingredientes 3 ))
 ([p20] of PASO (id_receta "Pizza carbonara") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_integral))
 ([p21] of PASO (id_receta "Pizza carbonara") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes pollo parmesano))
 ([p22] of PASO (id_receta "Pizza carbonara") (orden 3) (descripcion "Hornear la pizza"))
@@ -155,7 +162,7 @@
 ([i2r2] of INGREDIENTE_RECETA (id_ingrediente parmesano) (id_receta "Pizza carbonara")(paso 2) (cantidad 180)(tipo QUESO))
 )
 (definstances receta3
-([r3] of ITALIANO (id_receta "Pizza jamon y queso") (tipo_plato pizza) (ingredientes  masa_de_trigo jamon_york mozzarella) (num_ingredientes 3 ))
+([r3] of ITALIANO (id_receta "Pizza jamon y queso") (tipo_plato Pizza) (ingredientes  masa_de_trigo jamon_york mozzarella) (num_ingredientes 3 ))
 ([p30] of PASO (id_receta "Pizza jamon y queso") (orden 1) (descripcion "Preparar la masa: ") (ingredientes masa_de_trigo))
 ([p31] of PASO (id_receta "Pizza jamon y queso") (orden 2) (descripcion "Preparar los toppings: ") (ingredientes jamon_york mozzarella))
 ([p32] of PASO (id_receta "Pizza jamon y queso") (orden 3) (descripcion "Hornear la pizza"))
