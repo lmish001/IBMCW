@@ -19,6 +19,9 @@
 
 (defclass RECETA_GENERADA (is-a RECETA)
 (slot basado_en (type STRING))
+(slot impreso (type SYMBOL)
+(allowed-values true false)
+(default false))
 )
 
 (defclass PASO (is-a INITIAL-OBJECT)
@@ -71,6 +74,9 @@
 (slot incluir_paso (type SYMBOL)
 (allowed-values true false)
 (default false))
+(slot impreso (type SYMBOL)
+(allowed-values true false)
+(default false))
 )
 
 (defclass SINERGIA (is-a INITIAL-OBJECT)
@@ -78,6 +84,18 @@
 (slot id_ingrediente2(type SYMBOL))
 (slot grado (type INTEGER)
 (range 0 100))
+)
+
+(defclass IMPRIMIR (is-a INITIAL-OBJECT)
+(slot id_receta (type STRING))
+(slot paso (type INTEGER)
+(default 1))
+(slot imprimiendo (type SYMBOL)
+(allowed-values true false)
+(default false))
+(slot acabado (type SYMBOL)
+(allowed-values true false)
+(default false))
 )
 
 (deftemplate busqueda
