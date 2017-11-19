@@ -1,7 +1,7 @@
 (defrule inicio
 (declare (salience 100))
 =>
-(assert (busqueda (ingredientes masa_de_trigo) (tipo_plato null) (estilo ITALIANO)))
+(assert (busqueda (ingredientes tomate) (tipo_plato null) (estilo MEDITERRANEO)))
 (set-strategy random)
 )
 (defrule mensaje_error
