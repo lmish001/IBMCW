@@ -1,3 +1,6 @@
+;;Lizaveta Mishkinitse
+;;Raúl Escabia
+
 (defrule inicio
 (declare (salience 100))
 =>
@@ -150,8 +153,6 @@
 (declare (salience 45))
 ?rec<-(object (is-a RECETA_GENERADA)(id_receta ?id)(tipo_plato ?tp)(num_ingredientes ?ni)(impreso false))
 (not(object (is-a IMPRIMIR) (imprimiendo true) (acabado false)))
-;;(not(imprimiendo true))
-;;(not(imprimir_pasos ?id))
 =>
 (printout t "_______________________________________" crlf)
 (printout t "Receta generada: " ?id crlf)
@@ -159,33 +160,23 @@
 (printout t "	ingredientes: " crlf)
 (make-instance of IMPRIMIR (id_receta ?id) (imprimiendo true) (acabado false))
 (modify-instance ?rec (impreso true))
-;;(assert (imprimir_pasos ?id))
-;;(assert (imprimir_ingredientes ?id))
-;;(assert (paso 1))
-;;(assert (imprimiendo true))
 )
 
 (defrule imprimir_ingredientes
 (declare (salience 42))
-;;(imprimir_ingredientes ?id)
 (object (is-a IMPRIMIR) (imprimiendo true) (acabado false) (id_receta ?id))
 ?ingrediente<-(object (is-a INGREDIENTE_RECETA)(id_receta ?id)(id_ingrediente ?i)(cantidad ?c)(impreso false))
 =>
 (printout t "		"?i", " ?c"g" crlf)
-;;(modify-instance ?imprimir (paso (+ 1 ?p)))
 (modify-instance ?ingrediente (impreso true))
 )
 
 (defrule imprimir_pasos
 (declare (salience 40))
-;;(imprimir_pasos ?id)
 ?imprimir<-(object (is-a IMPRIMIR) (imprimiendo true) (acabado false) (id_receta ?id) (paso ?p))
-;;?po <-(paso ?o)
 ?paso_gen<-(object (is-a PASO_GENERADO) (id_receta ?id)(orden ?p)(descripcion ?d)(ingredientes $?ings)(impreso false))
 =>
 (printout t "	Paso "?p": " ?d $?ings crlf)
-;;(retract ?po)
-;;(assert (paso (+ ?o 1)))
 (modify-instance ?imprimir (paso (+ ?p 1)))
 (modify-instance ?paso_gen (impreso true))
 )
@@ -193,15 +184,9 @@
 (defrule reset_imprimir
 (declare (salience 47))
 ?imprimir<-(object (is-a IMPRIMIR) (imprimiendo true) (acabado false) (id_receta ?id) (paso ?p))
-;;?ip<-(imprimir_pasos ?id)
-;;?ii<-(imprimir_ingredientes ?id)
-;;?po <-(paso ?o)
-;;?i <- (imprimiendo true)
 (not (object (is-a PASO_GENERADO) (id_receta ?id)(orden ?p)(impreso false)))
 =>
 (modify-instance ?imprimir (acabado true) (imprimiendo false))
-;;(retract ?i)
-;;(retract ?po)
 )
 
 (defrule recetas_no_encontradas
