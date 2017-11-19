@@ -1,0 +1,6 @@
+p = new Paso[]{new Paso(1, "Preparar la masa: ", "masa"),
+						new Paso(2, "Preparar los toppings: ", "parmesano mozzarella queso_de_cabra roquefort"),
+						new Paso(3, "Hornear la pizza", "")
+		};
+		ing = new String[] {"masa", "parmesano", "mozzarella", "queso_de_cabra", "roquefort"};
+		recetas.add(new Receta(p, ing, "Pizza 4 quesos", "ITALIANO", "pizza"));
