@@ -38,6 +38,7 @@
 ([ing36] of ESPECIE (id_ingrediente sal))
 ([ing37] of ESPECIE (id_ingrediente pimiento))
 ([ing38] of ESPECIE (id_ingrediente perejil))
+([ing39] of QUESO (id_ingrediente roquefort))
 )
 
 (definstances sinergias
@@ -1534,7 +1535,7 @@
 ([i1r0] of INGREDIENTE_RECETA (id_ingrediente parmesano) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 180)(tipo QUESO))
 ([i2r0] of INGREDIENTE_RECETA (id_ingrediente mozzarella) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 170)(tipo QUESO))
 ([i3r0] of INGREDIENTE_RECETA (id_ingrediente queso_de_cabra) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 150)(tipo QUESO))
-([i4r0] of INGREDIENTE_RECETA (id_ingrediente roquefort) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 80)(tipo ))
+([i4r0] of INGREDIENTE_RECETA (id_ingrediente roquefort) (id_receta "Pizza 4 quesos")(paso 2) (cantidad 80)(tipo QUESO))
 )
 (definstances receta1
 ([r1] of ITALIANO (id_receta "Pizza barbacoa") (tipo_plato pizza) (ingredientes  masa_de_trigo ternera barbacoa) (num_ingredientes 3 ))
@@ -1567,8 +1568,7 @@
 ([r4] of ITALIANO (id_receta "Spaghetti con salsa de tomate") (tipo_plato Pasta) (ingredientes  masa_de_trigo spaghetti agua aciete_oliva tomate cebolla perejil parmesano) (num_ingredientes 8 ))
 ([p40] of PASO (id_receta "Spaghetti con salsa de tomate") (orden 1) (descripcion "Cocine la pasta en una olla grande de agua hirviendo con sal y revuelva ocasionalmente. Desagüe.  ") (ingredientes spaghetti agua))
 ([p41] of PASO (id_receta "Spaghetti con salsa de tomate") (orden 2) (descripcion "Mientras tanto, derrita aceite en una sartén grande a fuego medio. ") (ingredientes aciete_oliva))
-([p42] of PASO (id_receta "Spaghetti con salsa de tomate") (orden 3) (descripcion "Prepare la salsa mezclando los ingredientes") (ingredientes tomate cebolla perejil parmesano))
-([p43] of PASO (id_receta "Spaghetti con salsa de tomate") (orden 4) (descripcion "Añade la salsa a la pasta"))
+([p42] of PASO (id_receta "Spaghetti con salsa de tomate") (orden 3) (descripcion "Prepare la salsa mezclando los ingredientes. Añade la salsa a la pasta") (ingredientes tomate cebolla perejil parmesano))
 ([i1r4] of INGREDIENTE_RECETA (id_ingrediente spaghetti) (id_receta "Spaghetti con salsa de tomate")(paso 1) (cantidad 20)(tipo PASTA))
 ([i2r4] of INGREDIENTE_RECETA (id_ingrediente agua) (id_receta "Spaghetti con salsa de tomate")(paso 1) (cantidad 140)(tipo LIQUIDO))
 ([i3r4] of INGREDIENTE_RECETA (id_ingrediente aciete_oliva) (id_receta "Spaghetti con salsa de tomate")(paso 2) (cantidad 170)(tipo ACEITE))

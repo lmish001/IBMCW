@@ -1,7 +1,7 @@
 (defrule inicio
 (declare (salience 100))
 =>
-(assert (busqueda (ingredientes tomate) (tipo_plato null) (estilo MEDITERRANEO)))
+(assert (busqueda (ingredientes parmesano)))
 (set-strategy random)
 (dribble-on "dribble.txt")
 )
@@ -16,14 +16,14 @@
 (halt)
 )
 
+
 (defrule filtrar_recetas
 (declare (salience 90))
 (busqueda (estilo ?busq_e) (tipo_plato ?busq_tp) (ingredientes $? ?busq_ing))
-?ob<-(object (is-a ?obj_e&RECETA)(id_receta ?id)(tipo_plato ?obj_tp) (elegido false))
+?ob<-(object (is-a ?obj_e&RECETA)(id_receta ?id)(tipo_plato ?obj_tp) (elegido false) (generado false))
 (test(or
 	(superclassp ?busq_e ?obj_e)
 	(eq ?busq_e ?obj_e)
-	(eq ?busq_e null)
 ))
 (test(or
 	(eq ?busq_tp ?obj_tp)
@@ -39,14 +39,17 @@
 (printout t "Se ha seleccionado la receta: " ?id crlf)
 )
 
+
+
 (defrule generar_plantilla_receta
 (declare (salience 85))
-(object (is-a RECETA) (id_receta ?id) (tipo_plato ?tipo_plato) (elegido true) (num_ingredientes ?num))
+(object (is-a RECETA) (id_receta ?id) (tipo_plato ?tipo_plato) (elegido true) (generado false) (num_ingredientes ?num))
 (not (object (is-a RECETA_GENERADA)(basado_en ?id)))
 =>
-(make-instance of RECETA_GENERADA (id_receta (str-cat ?tipo_plato " basado en " ?id)) (tipo_plato ?tipo_plato) (basado_en ?id) (num_ingredientes ?num))
+(make-instance of RECETA_GENERADA (id_receta (str-cat ?tipo_plato " basado en " ?id)) (tipo_plato ?tipo_plato) (basado_en ?id) (num_ingredientes ?num) (generado true))
 (printout t "Generada receta basada en: " ?id crlf)
 )
+
 
 (defrule generar_plantilla_paso
 (declare (salience 80))
@@ -86,6 +89,7 @@
 
 (defrule fijar_ingrediente_1
 (declare (salience 65))
+(object (is-a RECETA_GENERADA) (id_receta ?id))
 (not (object (is-a INGREDIENTE_RECETA_GEN)(id_receta ?id)(id_ingrediente ~CAMBIAR)))
 
 ?ing1<-(object (is-a INGREDIENTE_RECETA_GEN) (id_receta ?id) (id_ingrediente CAMBIAR) (tipo ?tipo1) (fijado false))
@@ -104,8 +108,8 @@
 )
 
 =>
-(modify-instance ?ing1 (id_ingrediente ?id_ing1))
-(modify-instance ?ing2 (id_ingrediente ?id_ing2))
+(modify-instance ?ing1 (id_ingrediente ?id_ing1) (fijado true))
+(modify-instance ?ing2 (id_ingrediente ?id_ing2) (fijado true))
 )
 
 ;;Si ya hay ingredientes fijados, el siguiente ingrediente a añadir es el que tiene el grado de sinergia mas alto con alguno de los ingredientes introducidos
@@ -162,7 +166,7 @@
 (defrule imprimir_ingredientes
 (declare (salience 42))
 (imprimir_ingredientes ?id)
-?obj<-(object (is-a INGREDIENTE_RECETA)(id_receta ?id)(id_ingrediente ?i)(cantidad ?c))
+(object (is-a INGREDIENTE_RECETA)(id_receta ?id)(id_ingrediente ?i)(cantidad ?c))
 =>
 (printout t "		"?i", " ?c"g" crlf)
 )
@@ -171,11 +175,12 @@
 (declare (salience 40))
 (imprimir_pasos ?id)
 ?po <-(paso ?o)
-?rec<-(object (is-a PASO_GENERADO) (id_receta ?id)(orden ?o)(descripcion ?d)(ingredientes $?ings))
+?paso_gen<-(object (is-a PASO_GENERADO) (id_receta ?id)(orden ?o)(descripcion ?d)(ingredientes $?ings)(impreso false))
 =>
 (printout t "	Paso "?o": " ?d $?ings crlf)
 (retract ?po)
 (assert (paso (+ ?o 1)))
+(modify-instance ?paso_gen (impreso true))
 )
 
 (defrule reset_imprimir
@@ -193,9 +198,8 @@
 (defrule recetas_no_encontradas
 (declare (salience 45))
 (not (object (is-a RECETA) (elegido true)))
-
 =>
-(printout t "No ha sido posible generar una receta a partir de los criterios de busqueda introducidos.":crlf)
+(printout t "No ha sido posible generar una receta a partir de los criterios de busqueda introducidos." crlf)
 (dribble-off)
 )
 

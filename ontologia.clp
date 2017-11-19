@@ -6,6 +6,9 @@
 (slot elegido (type SYMBOL)
 (allowed-values true false)
 (default false))
+(slot generado (type SYMBOL)
+(allowed-values true false)
+(default false))
 )
 
 (defclass ASIATICO (is-a RECETA))
@@ -15,7 +18,8 @@
 (defclass GRIEGO (is-a MEDITERRANEO))
 
 (defclass RECETA_GENERADA (is-a RECETA)
-(slot basado_en (type STRING)))
+(slot basado_en (type STRING))
+)
 
 (defclass PASO (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
@@ -24,7 +28,10 @@
 (multislot ingredientes (type SYMBOL))
 )
 
-(defclass PASO_GENERADO(is-a PASO))
+(defclass PASO_GENERADO(is-a PASO)
+(slot impreso (type SYMBOL)
+(allowed-values true false)
+(default false)))
 
 (defclass INGREDIENTE (is-a INITIAL-OBJECT)
 (slot id_ingrediente (type SYMBOL)))
@@ -81,6 +88,6 @@
 	(default null))
 	(slot estilo
 	(type SYMBOL)
-	(default null))
+	(default RECETA))
 )
 
