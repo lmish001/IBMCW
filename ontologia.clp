@@ -1,3 +1,6 @@
+;;Lizaveta Mishkinitse
+;;Raúl Escabia
+
 (defclass RECETA (is-a INITIAL-OBJECT)
 (slot id_receta (type STRING))
 (slot tipo_plato (type SYMBOL))
