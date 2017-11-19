@@ -1,9 +1,75 @@
-//ingredientes
-	addingrediente("ternera", "CARNE");
-//recetas
-p = new Paso[]{new Paso(1, "Preparar la masa: ", "masa"),
+		addingrediente("ternera", "CARNE");
+		addingrediente("pollo", "CARNE");
+		addingrediente("pavo", "CARNE");
+		addingrediente("jamon_york", "CARNE");
+		
+		
+		addingrediente("barbacoa", "SALSA");
+		addingrediente("bolognesa", "SALSA");
+		addingrediente("chile_picante", "SALSA");
+		
+		addingrediente("atun", "PESCADO");
+		addingrediente("salmon", "PESCADO");
+		addingrediente("emperados", "PESCADO");
+		
+		addingrediente("tomate", "VERDURA");
+		addingrediente("lechuga", "VERDURA");
+		
+		addingrediente("judias_verdes", "LEGUMBRE");
+		addingrediente("repollo", "LEGUMBRE");
+		addingrediente("lentejas", "LEGUMBRE");
+		
+		addingrediente("naranja", "FRUTA");
+		addingrediente("manzana", "FRUTA");
+		addingrediente("platano", "FRUTA");
+		
+		addingrediente("macarrones", "PASTA");
+		addingrediente("ravioli", "PASTA");
+		
+		addingrediente("parmesano", "QUESO");
+		addingrediente("queso_de_cabra", "QUESO");
+		addingrediente("mozzarella", "QUESO");
+		addingrediente("queso_de_cabra", "QUESO");
+		
+		addingrediente("cereales_integrales", "CEREALES");
+		addingrediente("cereales_choco", "CEREALES");
+		
+		addingrediente("caldo_de_pollo", "LIQUIDO");
+		addingrediente("masa", "ALIMENTO");
+		addingrediente("masa_integral", "ALIMENTO");
+		
+		
+		
+		//________________________________________________________recetas______________________________________
+		Paso[] p;
+		String[] ing;
+		
+		p = new Paso[]{new Paso(1, "Preparar la masa: ", "masa"),
 						new Paso(2, "Preparar los toppings: ", "parmesano mozzarella queso_de_cabra roquefort"),
 						new Paso(3, "Hornear la pizza", "")
 		};
 		ing = new String[] {"masa", "parmesano", "mozzarella", "queso_de_cabra", "roquefort"};
 		recetas.add(new Receta(p, ing, "Pizza 4 quesos", "ITALIANO", "pizza"));
+		//
+		p = new Paso[]{new Paso(1, "Preparar la masa: ", "masa"),
+				new Paso(2, "Preparar los toppings: ", "ternera barbacoa"),
+				new Paso(3, "Hornear la pizza", "")
+				};
+		ing = new String[] {"masa", "ternera","barbacoa"};
+		recetas.add(new Receta(p, ing, "Pizza barbacoa", "ITALIANO", "pizza"));
+		//
+		p = new Paso[]{new Paso(1, "Preparar la masa: ", "masa_integral"),
+				new Paso(2, "Preparar los toppings: ", "pollo parmesano"),
+				new Paso(3, "Hornear la pizza", "")
+				};
+		ing = new String[] {"masa_integral", "pollo", "parmesano"};
+		recetas.add(new Receta(p, ing, "Pizza carbonara", "ITALIANO", "pizza"));
+		//
+		p = new Paso[]{new Paso(1, "Preparar la masa: ", "masa"),
+				new Paso(2, "Preparar los toppings: ", "jamon_york mozzarella"),
+				new Paso(3, "Hornear la pizza", "")
+				};
+		ing = new String[] {"masa", "jamon_york", "mozzarella"};
+		recetas.add(new Receta(p, ing, "Pizza jamon y queso", "ITALIANO", "pizza"));
+				
+		//________________________________________________________recetas______________________________________
