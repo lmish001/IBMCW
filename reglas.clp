@@ -1,7 +1,6 @@
 (defrule inicio
 (declare (salience 100))
 =>
-(assert (busqueda (ingredientes parmesano)))
 (set-strategy random)
 (dribble-on "dribble.txt")
 )
