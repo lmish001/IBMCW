@@ -1,7 +1,7 @@
 (defrule inicio
 (declare (salience 100))
 =>
-(assert (busqueda (ingredientes ternera) (tipo_plato null) (estilo ITALIANO)))
+(assert (busqueda (ingredientes masa_de_trigo) (tipo_plato null) (estilo ITALIANO)))
 (set-strategy random)
 )
 (defrule mensaje_error
@@ -67,7 +67,7 @@
 =>
 
 (make-instance of INGREDIENTE_RECETA_GEN (id_receta (str-cat ?tipo_plato " basado en " ?id)) (id_ingrediente ?id_ing) (paso ?p) (cantidad ?cant) (generado true) (tipo ?tipo_ing) (fijado true))
-(printout t "Ingrediente " ?id_ing ", generado para receta: " ?id crlf)
+(printout t "Ingrediente " ?id_ing ", fijado para receta: " ?id crlf)
 )
 
 (defrule generar_plantilla_ingrediente_2
@@ -163,7 +163,7 @@
 (defrule imprimir_ingredientes
 (declare (salience 42))
 (imprimir_ingredientes ?id)
-?obj<-(object (is-a INGREDIENTE_RECETA_GEN)(id_receta ?id)(id_ingrediente ?i)(cantidad ?c))
+?obj<-(object (is-a INGREDIENTE_RECETA)(id_receta ?id)(id_ingrediente ?i)(cantidad ?c))
 =>
 (printout t "		"?i", " ?c"g" crlf)
 )

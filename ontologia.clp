@@ -15,6 +15,7 @@
 (defclass ASIATICO (is-a RECETA))
 (defclass MEDITERRANEO (is-a RECETA))
 (defclass ITALIANO (is-a MEDITERRANEO))
+(defclass GRIEGO (is-a MEDITERRANEO))
 
 (defclass RECETA_GENERADA (is-a RECETA)
 (slot basado_en (type STRING)))
@@ -34,8 +35,8 @@
 (defclass SALSA (is-a INGREDIENTE))
 (defclass ESPECIE (is-a INGREDIENTE))
 (defclass LIQUIDO (is-a INGREDIENTE))
-
 (defclass ALIMENTO (is-a INGREDIENTE))
+
 (defclass CARNE (is-a ALIMENTO))
 (defclass PESCADO (is-a ALIMENTO))
 (defclass VERDURA (is-a ALIMENTO))
@@ -46,6 +47,7 @@
 (defclass QUESO (is-a DERIVADOS_LECHE))
 (defclass CEREALES (is-a ALIMENTO))
 (defclass MASA (is-a ALIMENTO))
+(defclass ACEITE (is-a LIQUIDO))
 
 (defclass INGREDIENTE_RECETA (is-a INITIAL-OBJECT)
 (slot id_ingrediente(type SYMBOL))
