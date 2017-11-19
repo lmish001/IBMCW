@@ -1,0 +1,103 @@
+Se ha seleccionado la receta: Pizza carbonara
+Se ha seleccionado la receta: Ensalada César
+Se ha seleccionado la receta: Spaghetti con salsa de tomate
+Se ha seleccionado la receta: Pizza 4 quesos
+Generada receta basada en: Pizza 4 quesos
+Generada receta basada en: Ensalada César
+Generada receta basada en: Pizza carbonara
+Generada receta basada en: Spaghetti con salsa de tomate
+Paso 4, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 3, generado para receta: pizza basado en Pizza 4 quesos
+Paso 2, generado para receta: Ensalada basado en Ensalada César
+Paso 3, generado para receta: pizza basado en Pizza carbonara
+Paso 1, generado para receta: pizza basado en Pizza 4 quesos
+Paso 1, generado para receta: pizza basado en Pizza carbonara
+Paso 3, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 2, generado para receta: pizza basado en Pizza 4 quesos
+Paso 2, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 2, generado para receta: pizza basado en Pizza carbonara
+Paso 1, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 3, generado para receta: Ensalada basado en Ensalada César
+Paso 1, generado para receta: Ensalada basado en Ensalada César
+Ingrediente parmesano, fijado para receta: Pasta basado en Spaghetti con salsa de tomate
+Ingrediente parmesano, fijado para receta: pizza basado en Pizza 4 quesos
+Ingrediente parmesano, fijado para receta: Ensalada basado en Ensalada César
+Ingrediente parmesano, fijado para receta: pizza basado en Pizza carbonara
+Falta por fijar ingrediente de tipo QUESO, para receta: pizza basado en Pizza 4 quesos
+Falta por fijar ingrediente de tipo CARNE, para receta: Ensalada basado en Ensalada César
+Falta por fijar ingrediente de tipo MASA, para receta: pizza basado en Pizza carbonara
+Falta por fijar ingrediente de tipo QUESO, para receta: pizza basado en Pizza 4 quesos
+Falta por fijar ingrediente de tipo VERDURA, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo MASA, para receta: pizza basado en Pizza 4 quesos
+Falta por fijar ingrediente de tipo VERDURA, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo ESPECIE, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo CARNE, para receta: pizza basado en Pizza carbonara
+Falta por fijar ingrediente de tipo VERDURA, para receta: Ensalada basado en Ensalada César
+Falta por fijar ingrediente de tipo PASTA, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo ACEITE, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo QUESO, para receta: pizza basado en Pizza 4 quesos
+Falta por fijar ingrediente de tipo VERDURA, para receta: Ensalada basado en Ensalada César
+Falta por fijar ingrediente de tipo LIQUIDO, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: queso_de_cabra, grado: 90, para receta: pizza basado en Pizza 4 quesos
+Sinergia optima encontrada: rucula, grado: 75, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: linguine, grado: 65, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: aciete_vegetal, grado: 55, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: perejil, grado: 100, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: lechuga, grado: 35, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: rucula, grado: 75, para receta: Ensalada basado en Ensalada César
+Sinergia optima encontrada: mozzarella, grado: 95, para receta: pizza basado en Pizza 4 quesos
+Sinergia optima encontrada: queso_de_cabra, grado: 75, para receta: pizza basado en Pizza 4 quesos
+Sinergia optima encontrada: caldo_de_pollo, grado: 20, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: pollo, grado: 70, para receta: Ensalada basado en Ensalada César
+Sinergia optima encontrada: rucula, grado: 35, para receta: Ensalada basado en Ensalada César
+Sinergia optima encontrada: masa_de_trigo, grado: 45, para receta: pizza basado en Pizza carbonara
+Sinergia optima encontrada: masa_integral, grado: 5, para receta: pizza basado en Pizza 4 quesos
+Sinergia optima encontrada: pavo, grado: 15, para receta: pizza basado en Pizza carbonara
+_______________________________________
+Receta generada: Ensalada basado en Ensalada César
+	tipo de plato: Ensalada
+	ingredientes: 
+		rucula, 170g
+		pollo, 90g
+		rucula, 70g
+		parmesano, 150g
+	Paso 1: Corte las verduras  (rucula rucula)
+	Paso 2: Mientras tanto, prepare la carne en sartén grande a fuego medio. (pollo)
+	Paso 3: Añade la carne, aceite y queso a la ensalada(parmesano)
+_______________________________________
+Receta generada: Pasta basado en Spaghetti con salsa de tomate
+	tipo de plato: Pasta
+	ingredientes: 
+		aciete_vegetal, 170g
+		rucula, 200g
+		parmesano, 120g
+		caldo_de_pollo, 140g
+		perejil, 20g
+		linguine, 20g
+		lechuga, 110g
+	Paso 1: Cocine la pasta en una olla grande de agua hirviendo con sal y revuelva ocasionalmente. Desagüe.  (caldo_de_pollo linguine)
+	Paso 2: Mientras tanto, derrita aceite en una sartén grande a fuego medio. (aciete_vegetal)
+	Paso 3: Prepare la salsa mezclando los ingredientes.(lechuga rucula perejil parmesano)
+	Paso 4: Añade la salsa a la pasta()
+_______________________________________
+Receta generada: pizza basado en Pizza 4 quesos
+	tipo de plato: pizza
+	ingredientes: 
+		queso_de_cabra, 170g
+		mozzarella, 80g
+		queso_de_cabra, 150g
+		masa_integral, 90g
+		parmesano, 180g
+	Paso 1: Preparar la masa_de_trigo: (masa_integral)
+	Paso 2: Preparar los toppings: (queso_de_cabra mozzarella parmesano queso_de_cabra)
+	Paso 3: Hornear la pizza()
+_______________________________________
+Receta generada: pizza basado en Pizza carbonara
+	tipo de plato: pizza
+	ingredientes: 
+		pavo, 30g
+		masa_de_trigo, 20g
+		parmesano, 20g
+	Paso 1: Preparar la masa_de_trigo: (masa_de_trigo)
+	Paso 2: Preparar los toppings: (pavo parmesano)
+	Paso 3: Hornear la pizza()

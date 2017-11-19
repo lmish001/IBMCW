@@ -1,0 +1,33 @@
+Se ha seleccionado la receta: Spaghetti con salsa de tomate
+Generada receta basada en: Spaghetti con salsa de tomate
+Paso 2, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 1, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 3, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Paso 4, generado para receta: Pasta basado en Spaghetti con salsa de tomate
+Ingrediente agua, fijado para receta: Pasta basado en Spaghetti con salsa de tomate
+Ingrediente tomate, fijado para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo QUESO, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo ACEITE, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo ESPECIE, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo VERDURA, para receta: Pasta basado en Spaghetti con salsa de tomate
+Falta por fijar ingrediente de tipo PASTA, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: queso_de_cabra, grado: 20, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: aciete_vegetal, grado: 100, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: tomate, grado: 75, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: spaghetti, grado: 65, para receta: Pasta basado en Spaghetti con salsa de tomate
+Sinergia optima encontrada: perejil, grado: 25, para receta: Pasta basado en Spaghetti con salsa de tomate
+_______________________________________
+Receta generada: Pasta basado en Spaghetti con salsa de tomate
+	tipo de plato: Pasta
+	ingredientes: 
+		tomate, 200g
+		perejil, 20g
+		spaghetti, 20g
+		tomate, 110g
+		aciete_vegetal, 170g
+		agua, 140g
+		queso_de_cabra, 120g
+	Paso 1: Cocine la pasta en una olla grande de agua hirviendo con sal y revuelva ocasionalmente. Desagüe.  (spaghetti agua)
+	Paso 2: Mientras tanto, derrita aceite en una sartén grande a fuego medio. (aciete_vegetal)
+	Paso 3: Prepare la salsa mezclando los ingredientes.(tomate tomate queso_de_cabra perejil)
+	Paso 4: Añade la salsa a la pasta()
